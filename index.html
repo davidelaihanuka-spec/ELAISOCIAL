@@ -11,7 +11,7 @@
   @font-face {
     font-family: "AppDisplay";
     src: local("SF Pro Display"), local("SF Pro Text"), local("-apple-system"),
-         local("Segoe UI"), local("Ubuntu"), local("Helvetica Neue");
+         local("Segoe UI"), local("Ubuntu"), local("Helvetica Neue");hh
     font-weight: 700 900;
   }
   @font-face {
@@ -2322,7 +2322,7 @@ textarea.fi { resize: vertical; min-height: 60px; }
 
 /* Glass icon buttons */
 .icon-btns {
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: repeat(5, 1fr);
   gap: 16px; justify-items: center; margin-bottom: 24px;
 }
 .icon-btn {
@@ -8859,6 +8859,15 @@ function carouselUpdate() {
         <span class="icon-btn__label">תסריט</span>
       </button>
 
+      <button class="icon-btn" onclick="closeChooser();setTimeout(()=>openClientPanel(''),80)">
+        <div class="icon-btn__wrap">
+          <span class="icon-btn__back" style="background:linear-gradient(hsl(158,90%,50%),hsl(143,90%,50%))"></span>
+          <span class="icon-btn__front">
+            <span class="icon-btn__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256" fill="#ebe5e5"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"/></svg></span>
+          </span>
+        </div>
+        <span class="icon-btn__label">לקוח</span>
+      </button>
     </div>
     <button onclick="closeChooser()" style="width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);padding:10px;border-radius:12px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s" onmouseover="this.style.background='rgba(255,255,255,.12)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">ביטול</button>
   </div>
