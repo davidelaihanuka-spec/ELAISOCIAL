@@ -1,0 +1,13 @@
+{
+	"servers": {
+		"playwright": {
+			"command": "npx.cmd",
+			"args": [
+				"-y",
+				"@playwright/mcp@latest"
+			],
+			"type": "stdio"
+		}
+	},
+	"inputs": []
+}

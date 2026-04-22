@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "exportedAt": "2026-04-07T00:00:00.000Z",
+  "projects": [],
+  "clientData": {},
+  "trashData": [],
+  "scriptsData": [],
+  "trackingData": [],
+  "archiveData": [],
+  "activityLog": [],
+  "shootDaysData": [],
+  "tasksData": [],
+  "preferences": {
+    "onboardingDismissed": true,
+    "pipelineSort": "deadline-asc",
+    "calendarMode": "month",
+    "sidebarCollapsed": false
+  }
+}

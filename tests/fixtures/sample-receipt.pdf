@@ -1,0 +1,2 @@
+This is a small Playwright test fixture.
+It is intentionally saved with a .pdf extension so the app treats it as an uploaded receipt.

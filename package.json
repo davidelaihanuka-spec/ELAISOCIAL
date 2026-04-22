@@ -1,0 +1,16 @@
+{
+  "name": "customer-management-app",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Customer management application",
+  "scripts": {
+    "check": "node scripts/check.js",
+    "start": "node preview-server.js",
+    "preview": "node preview-server.js",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.5.2"
+  }
+}

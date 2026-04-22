@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REEL — ניהול פרויקטי וידאו</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="app/app.css">
+</head>
+<body>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="main-sidebar">
+    <button class="sidebar-toggle" id="sidebar-toggle-btn" onclick="toggleSidebar()" title="כווץ תפריט">‹</button>
+    <div class="logo-area">
+      <div class="logo-mark">REEL</div>
+      <div class="logo-sub">ניהול סרטונים ורילס</div>
+    </div>
+    <div class="card-nav" id="card-nav">
+
+      <div class="cn-card active" id="cn-pipeline" onclick="cnClick('pipeline',this)">
+        <div class="cn-bg" style="background:linear-gradient(135deg,rgba(255,60,110,.12),rgba(255,184,48,.06))"></div>
+        <div class="cn-header">
+          <span class="cn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM40,88h80v80H40Zm96-16V56h32V72Zm-16,0H88V56h32Zm0,112v16H88V184Zm16,0h32v16H136Zm0-16V88h80v80Zm80-96H184V56h32ZM72,56V72H40V56ZM40,184H72v16H40Zm176,16H184V184h32v16Z"/></svg></span>
+          <span class="cn-label">צינור הפרויקטים</span>
+          <span class="cn-badge" id="nc-active">0</span>
+        </div>
+      </div>
+
+      <div class="cn-card" id="cn-clients" onclick="cnClick('clients',this)">
+        <div class="cn-bg" style="background:linear-gradient(135deg,rgba(0,180,216,.1),rgba(0,180,216,.04))"></div>
+        <div class="cn-header">
+          <span class="cn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z"/></svg></span>
+          <span class="cn-label">לקוחות</span>
+        </div>
+      </div>
+
+      <div class="cn-card" id="cn-calendar" onclick="cnClick('calendar',this)">
+        <div class="cn-bg" style="background:linear-gradient(135deg,rgba(108,99,255,.1),rgba(108,99,255,.04))"></div>
+        <div class="cn-header">
+          <span class="cn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,176H48V48H72v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24Z"/></svg></span>
+          <span class="cn-label">לוח שנה</span>
+        </div>
+      </div>
+
+      <div class="cn-card" id="cn-payments" onclick="cnClick('payments',this)">
+        <div class="cn-bg" style="background:linear-gradient(135deg,rgba(0,229,160,.1),rgba(0,229,160,.04))"></div>
+        <div class="cn-header">
+          <span class="cn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-68a28,28,0,0,1-28,28v4a8,8,0,0,1-16,0v-4H112a8,8,0,0,1,0-16h32a12,12,0,0,0,0-24H112a28,28,0,0,1,0-56v-4a8,8,0,0,1,16,0v4h12a8,8,0,0,1,0,16H112a12,12,0,0,0,0,24h16A28,28,0,0,1,168,148Z"/></svg></span>
+          <span class="cn-label">תשלומים</span>
+        </div>
+      </div>
+
+      <div class="cn-card" id="cn-tracking" onclick="cnClick('tracking',this)">
+        <div class="cn-bg" style="background:linear-gradient(135deg,rgba(255,184,48,.1),rgba(255,184,48,.04))"></div>
+        <div class="cn-header">
+          <span class="cn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span>
+          <span class="cn-label">מעקב ביצועים</span>
+        </div>
+      </div>
+
+      <div class="cn-card" id="cn-scripts" onclick="cnClick('scripts',this)">
+        <div class="cn-bg" style="background:linear-gradient(135deg,rgba(167,139,250,.1),rgba(167,139,250,.04))"></div>
+        <div class="cn-header">
+          <span class="cn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M163.31,100.69a16,16,0,0,0-22.63,0L72,169.37,56,224l54.63-16L178.69,140a16,16,0,0,0,0-22.63ZM92.37,214,68,221l7-24.33,77.37-77.38,17.37,17.37ZM168,128.69l-17.37-17.38,11.32-11.31,17.37,17.37ZM216,88H152a8,8,0,0,0,0,16h56V208H48V104H96a8,8,0,0,0,0-16H48A16,16,0,0,0,32,104V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V104A16,16,0,0,0,216,88Z"/></svg></span>
+          <span class="cn-label">תסריטים</span>
+          <span class="cn-badge" id="nc-scripts" style="display:none">0</span>
+        </div>
+      </div>
+
+      <div class="cn-card" id="cn-trash" onclick="cnClick('trash',this)">
+        <div class="cn-bg" style="background:linear-gradient(135deg,rgba(255,60,110,.08),transparent)"></div>
+        <div class="cn-header">
+          <span class="cn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></svg></span>
+          <span class="cn-label" style="color:var(--danger);opacity:.8">פח אשפה</span>
+          <span class="cn-badge" id="nc-trash" style="display:none;background:var(--muted)">0</span>
+        </div>
+      </div>
+
+      <div class="cn-card" id="cn-history" onclick="cnClick('history',this)">
+        <div class="cn-bg" style="background:linear-gradient(135deg,rgba(108,99,255,.1),rgba(108,99,255,.04))"></div>
+        <div class="cn-header">
+          <span class="cn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#ebe5e5" viewBox="0 0 256 256"><path d="M140,80v41.21l34.17,20.5a12,12,0,1,1-12.34,20.58l-40-24A12,12,0,0,1,116,128V80a12,12,0,0,1,24,0ZM128,28A99.38,99.38,0,0,0,57.24,57.34c-4.69,4.74-9,9.37-13.24,14V64a12,12,0,0,0-24,0v40a12,12,0,0,0,12,12H72a12,12,0,0,0,0-24H57.77C63,86,68.37,80.22,74.26,74.26a76,76,0,1,1,1.58,109,12,12,0,0,0-16.48,17.46A100,100,0,1,0,128,28Z"></path></svg></span>
+          <span class="cn-label">היסטוריה</span>
+          <span class="cn-badge" id="nc-archive" style="display:none;background:#6c63ff">0</span>
+        </div>
+      </div>
+
+    </div>
+    <div class="sidebar-footer">
+      <div style="display:flex;gap:5px;margin-bottom:10px">
+        <button onclick="exportData()" style="flex:1;background:var(--s2);border:1px solid var(--border2);color:var(--muted2);padding:6px;border-radius:8px;font-family:inherit;font-size:10px;font-weight:700;cursor:pointer" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted2)'"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M216,112v96a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V112A16,16,0,0,1,56,96H80a8,8,0,0,1,0,16H56v96H200V112H176a8,8,0,0,1,0-16h24A16,16,0,0,1,216,112Zm-94.34-74.34a8,8,0,0,1,11.31,0l40,40a8,8,0,0,1-11.31,11.31L136,63.31V168a8,8,0,0,1-16,0V63.31L94.34,88.97a8,8,0,0,1-11.31-11.31Z"/></svg> ייצוא</button>
+        <label style="flex:1;background:var(--s2);border:1px solid var(--border2);color:var(--muted2);padding:6px;border-radius:8px;font-family:inherit;font-size:10px;font-weight:700;cursor:pointer;text-align:center" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted2)'"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></svg> ייבוא<input type="file" accept=".json" style="display:none" onchange="importData(event)"></label>
+      </div>
+      <div style="margin-bottom:8px; font-size:10px; text-transform:uppercase; letter-spacing:1px; font-weight:700; color:var(--muted);">שלבי ייצור</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <div style="font-size:11px;color:var(--muted2)"><span class="legend-dot" style="background:#6c63ff"></span>אישור תסריט</div>
+        <div style="font-size:11px;color:var(--muted2)"><span class="legend-dot" style="background:#00b4d8"></span>צילום</div>
+        <div style="font-size:11px;color:var(--muted2)"><span class="legend-dot" style="background:#ff8c42"></span>עריכה</div>
+        <div style="font-size:11px;color:var(--muted2)"><span class="legend-dot" style="background:#ffb830"></span>אישור לקוח</div>
+        <div style="font-size:11px;color:var(--muted2)"><span class="legend-dot" style="background:#00e5a0"></span>פורסם</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main" data-view="pipeline">
+    <div class="topbar">
+      <div class="topbar-title" id="view-title">צינור הפרויקטים</div>
+      <div class="global-search-wrap" id="global-search-wrap">
+        <span class="gs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,218.34l-50.07-50.06a88.21,88.21,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg></span>
+        <input class="gs-input" id="gs-input" placeholder="חפש פרויקט, לקוח..." oninput="runGlobalSearch(this.value)" onfocus="showSearchResults()" onkeydown="gsKeydown(event)">
+        <button class="gs-clear" id="gs-clear" onclick="clearSearch()" style="display:none">✕</button>
+      </div>
+      <div class="gs-results-wrap">
+        <div class="gs-gradient-top" id="gs-grad-top" style="opacity:0"></div>
+        <div class="gs-results" id="gs-results" style="display:none"></div>
+      <button class="btn btn-add" onclick="openAddChooser()">
+        <span>＋</span> הוסף חדש
+      </button>
+    </div>
+        <div class="gs-gradient-bottom" id="gs-grad-bottom" style="opacity:1"></div>
+      </div>
+
+    <!-- Scripts subheader (shown when scripts view is active) -->
+    <div class="view-subheader" id="subheader-scripts">
+      <button class="filter-chip active" id="schip-all"    onclick="setScriptFilter('all',this)">הכל</button>
+      <button class="filter-chip"        id="schip-draft"  onclick="setScriptFilter('draft',this)">✏️ טיוטה</button>
+      <button class="filter-chip"        id="schip-ready"  onclick="setScriptFilter('ready',this)">👁 מוכן לצילום</button>
+      <button class="filter-chip"        id="schip-filmed" onclick="setScriptFilter('filmed',this)">🎬 צולם</button>
+      <button class="btn btn-add subheader-btn" onclick="openScriptModal()">＋ תסריט חדש</button>
+    </div>
+
+    <!-- History subheader (shown when history view is active) -->
+    <div class="view-subheader" id="subheader-history">
+      <button class="filter-chip active" id="hchip-archive" onclick="setHistoryTab('archive',this)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="vertical-align:middle;margin-left:4px"><path d="M223.15,68.72,197.29,42.85A16.08,16.08,0,0,0,186,38H70a16.08,16.08,0,0,0-11.31,4.69L32.85,68.72A16,16,0,0,0,28,79.43V208a16,16,0,0,0,16,16H212a16,16,0,0,0,16-16V79.43A16,16,0,0,0,223.15,68.72ZM70,54H186l18.35,18H51.65ZM212,208H44V88H212V208Zm-82.34-90.34a8,8,0,0,1,11.31,0l24,24a8,8,0,0,1-11.31,11.31L144,143.31V168a8,8,0,0,1-16,0V143.31l-9.66,9.66a8,8,0,0,1-11.31-11.31Z"/></svg> ארכיון</button>
+      <button class="filter-chip"        id="hchip-log"     onclick="setHistoryTab('log',this)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="vertical-align:middle;margin-left:4px"><path d="M136,80a8,8,0,0,0-16,0v43.05L96.11,147.2a8,8,0,1,0,11.78,10.8L132.11,131A8,8,0,0,0,136,125Zm-8-56A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Z"/></svg> לוג פעילות</button>
+      <button class="filter-chip"        id="hchip-stats"   onclick="setHistoryTab('stats',this)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="vertical-align:middle;margin-left:4px"><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V96H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v48H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160Zm-56,64h40V200H104Zm-48,48h32v40H56Z"/></svg> סטטיסטיקות</button>
+      <button class="filter-chip" id="hchip-trash" onclick="setHistoryTab('trash',this)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="vertical-align:middle;margin-left:4px"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></svg> פח</button>
+      <button onclick="clearActivityLog()" class="filter-chip" id="hist-clear-btn" style="color:var(--danger);border-color:rgba(255,60,110,.25);display:none"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="vertical-align:middle;margin-left:4px"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></svg> נקה לוג</button>
+      <input id="history-search" class="subheader-search" placeholder="חיפוש בארכיון..." oninput="renderHistory()">
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row" id="stats-row">
+      <div class="stat-card" style="--sc:#6c63ff">
+        <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM40,88h80v80H40Zm96-16V56h32V72Zm-16,0H88V56h32Zm0,112v16H88V184Zm16,0h32v16H136Zm0-16V88h80v80Zm80-96H184V56h32ZM72,56V72H40V56ZM40,184H72v16H40Zm176,16H184V184h32v16Z"/></svg></div>
+        <div class="stat-num" id="s-total">0</div>
+        <div class="stat-lbl">פרויקטים פעילים</div>
+      </div>
+      <div class="stat-card" style="--sc:#ffb830">
+        <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v52h48A8,8,0,0,1,192,128Z"/></svg></div>
+        <div class="stat-num" id="s-due">0</div>
+        <div class="stat-lbl">דד-ליין השבוע</div>
+      </div>
+      <div class="stat-card" style="--sc:#00e5a0">
+        <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-68a28,28,0,0,1-28,28v4a8,8,0,0,1-16,0v-4H112a8,8,0,0,1,0-16h32a12,12,0,0,0,0-24H112a28,28,0,0,1,0-56v-4a8,8,0,0,1,16,0v4h12a8,8,0,0,1,0,16H112a12,12,0,0,0,0,24h16A28,28,0,0,1,168,148Z"/></svg></div>
+        <div class="stat-num" id="s-paid">₪0</div>
+        <div class="stat-lbl">הכנסות שולמו</div>
+      </div>
+      <div class="stat-card" style="--sc:#ff3c6e">
+        <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19Z"/></svg></div>
+        <div class="stat-num" id="s-unpaid">₪0</div>
+        <div class="stat-lbl">ממתין לתשלום</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- PIPELINE VIEW -->
+      <div class="view active" id="view-pipeline">
+        <div class="filter-row">
+          <button class="filter-chip active" onclick="setFilter('all',this)">הכל</button>
+          <button class="filter-chip" onclick="setFilter('overdue',this)"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M181.23,172.84C170.18,193.42,149.3,208,128,208A80.09,80.09,0,0,1,48,128a81.39,81.39,0,0,1,1.8-17c4.82-22,18.26-40.49,29.42-55.33,2.68-3.57,5.27-7,7.5-10.26a8,8,0,0,1,13.4.68,80.4,80.4,0,0,0,23.72,24.77,94.07,94.07,0,0,1,10.14-38.37,8,8,0,0,1,12-2.24c4.3,3.81,50.06,45.56,44.86,98.34C192.17,150.28,188.3,159.92,181.23,172.84ZM128,192c-15.24,0-30.73-9-40.72-24a56.06,56.06,0,0,0,30.75,8.59c20.91,0,38.4-13,43.75-32.37C162.19,137.23,154.68,129.55,128,120a8,8,0,0,0-9.82,9.33C122.24,147.87,115.34,162.41,104.73,169,97.28,173.57,88.78,173,84,170c7.74,13.33,22.89,22,44,22Z"/></svg> דד-ליין עבר</button>
+          <button class="filter-chip" onclick="setFilter('week',this)"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,176H48V48H72v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24Z"/></svg> השבוע</button>
+          <div class="view-toggle">
+            <button class="vt-btn active" id="vt-kanban" onclick="setViewMode('kanban')">⊞</button>
+            <button class="vt-btn" id="vt-list" onclick="setViewMode('list')">☰</button>
+          </div>
+        </div>
+        <div id="kanban-view" style="overflow-x:auto;padding-bottom:4px">
+          <div class="pipeline" id="kanban-grid"></div>
+        </div>
+        <div id="list-view-wrap" style="display:none">
+          <div class="list-view" id="list-grid"></div>
+        </div>
+        <div class="empty-state" id="empty-pipeline" style="display:none">
+          <div class="empty-icon">🎬</div>
+          <div class="empty-txt">אין פרויקטים. לחץ <strong>הוסף פרויקט</strong> כדי להתחיל!</div>
+        </div>
+      </div>
+
+      <!-- CLIENTS VIEW -->
+      <div class="view" id="view-clients">
+        <div class="clients-grid" id="clients-grid"></div>
+        <div class="empty-state" id="empty-clients" style="display:none">
+          <div class="empty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z"/></svg></div>
+          <div class="empty-txt">אין לקוחות עדיין.</div>
+        </div>
+      </div>
+
+      <!-- CALENDAR VIEW -->
+      <div class="view" id="view-calendar">
+        <div class="cal-wrap">
+          <div class="cal-nav">
+            <button class="btn btn-ghost btn-sm" onclick="calPrev()">‹</button>
+            <div class="cal-nav-title" id="cal-title"></div>
+            <button class="btn btn-ghost btn-sm" onclick="calNext()">›</button>
+          </div>
+          <div class="cal-grid" id="cal-grid"></div>
+        </div>
+      </div>
+
+      <!-- PAYMENTS VIEW -->
+      <div class="view" id="view-payments" style="position:relative;overflow:hidden;">
+        <div id="pay-main-view">
+          <div class="payments-summary" id="pay-summary"></div>
+          <div class="pay-clients-grid" id="pay-table"></div>
+        </div>
+        <div class="pay-detail-screen" id="pay-detail-screen" style="display:none">
+          <div class="pay-detail-header">
+            <button class="pay-detail-back" onclick="closePayDetail()">‹</button>
+            <div id="pay-detail-avatar" class="pay-client-avatar" style="width:38px;height:38px;font-size:16px;border-radius:10px;"></div>
+            <div style="flex:1;min-width:0">
+              <div id="pay-detail-name" style="font-size:16px;font-weight:800"></div>
+              <div id="pay-detail-sub" style="font-size:11px;color:var(--muted2);margin-top:1px"></div>
+            </div>
+            <div id="pay-detail-totals" style="display:flex;gap:16px;align-items:center"></div>
+          </div>
+          <div class="pay-detail-body" id="pay-detail-body"></div>
+        </div>
+      </div>
+
+      <!-- PROJECT PAYMENT SIDE PANEL -->
+      <div class="proj-pay-panel-overlay" id="ppp-overlay" onclick="closeProjPayPanel()"></div>
+      <div class="proj-pay-panel" id="proj-pay-panel">
+        <div class="ppp-header">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <button class="ppp-close" onclick="closeProjPayPanel()">✕</button>
+            <div style="flex:1;min-width:0">
+              <div id="ppp-title" style="font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
+              <div id="ppp-client" style="font-size:11px;color:var(--muted2);margin-top:2px"></div>
+            </div>
+            <div id="ppp-status-badge"></div>
+          </div>
+          <!-- Price + paid bar -->
+          <div style="display:flex;gap:10px">
+            <div style="flex:1;background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;text-align:center">
+              <div id="ppp-total" style="font-size:20px;font-weight:900;color:var(--text)"></div>
+              <div style="font-size:10px;color:var(--muted2);margin-top:2px">סה"כ לתשלום</div>
+            </div>
+            <div style="flex:1;background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;text-align:center">
+              <div id="ppp-paid" style="font-size:20px;font-weight:900;color:var(--success)"></div>
+              <div style="font-size:10px;color:var(--muted2);margin-top:2px">שולם</div>
+            </div>
+            <div style="flex:1;background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;text-align:center">
+              <div id="ppp-due" style="font-size:20px;font-weight:900;color:var(--danger)"></div>
+              <div style="font-size:10px;color:var(--muted2);margin-top:2px">יתרה</div>
+            </div>
+          </div>
+          <!-- Progress bar -->
+          <div style="margin-top:10px;height:6px;background:var(--s3);border-radius:6px;overflow:hidden">
+            <div id="ppp-progress" style="height:100%;border-radius:6px;background:linear-gradient(90deg,var(--success),#00c987);transition:width .5s"></div>
+          </div>
+        </div>
+        <div class="ppp-body" id="ppp-body"></div>
+      </div>
+
+      <!-- TRACKING VIEW -->
+      <div class="view" id="view-tracking">
+        <div class="filter-row" style="margin-bottom:20px;">
+          <button class="filter-chip active" onclick="setTrackFilter('all',this)">הכל</button>
+          <button class="filter-chip" onclick="setTrackFilter('tiktok',this)">TikTok</button>
+          <button class="filter-chip" onclick="setTrackFilter('instagram',this)">Instagram</button>
+          <button class="filter-chip" onclick="setTrackFilter('youtube',this)">YouTube</button>
+          <button class="filter-chip" onclick="setTrackFilter('facebook',this)">Facebook</button>
+          <button class="btn btn-ghost btn-sm" style="margin-right:auto;" onclick="openAddTracking()">+ הוסף נתונים</button>
+        </div>
+        <div id="tracking-grid"></div>
+        <div class="empty-state" id="empty-tracking" style="display:none">
+          <div class="empty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></div>
+          <div class="empty-txt">אין נתוני מעקב עדיין. לחץ <strong>+ הוסף נתונים</strong> כדי להתחיל!</div>
+        </div>
+      </div>
+
+    </div>
+
+      <!-- SCRIPTS VIEW -->
+      <div class="view" id="view-scripts">
+        <div id="scripts-list"></div>
+        <div class="empty-state" id="empty-scripts" style="display:none">
+          <div class="empty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256" fill="currentColor"><path d="M163.31,100.69a16,16,0,0,0-22.63,0L72,169.37,56,224l54.63-16L178.69,140a16,16,0,0,0,0-22.63ZM92.37,214,68,221l7-24.33,77.37-77.38,17.37,17.37ZM168,128.69l-17.37-17.38,11.32-11.31,17.37,17.37ZM216,88H152a8,8,0,0,0,0,16h56V208H48V104H96a8,8,0,0,0,0-16H48A16,16,0,0,0,32,104V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V104A16,16,0,0,0,216,88Z"/></svg></div>
+          <div class="empty-txt">אין תסריטים. לחץ <strong>+ תסריט חדש</strong></div>
+        </div>
+      </div>
+
+      <!-- TRASH VIEW -->
+      <div class="view" id="view-trash">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <div style="font-size:13px;color:var(--muted2)">פריטים שנמחקו ישמרו כאן</div>
+          <button class="btn btn-ghost btn-sm" onclick="emptyTrash()" style="color:var(--danger)"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></svg> רוקן הכל</button>
+        </div>
+        <div id="trash-list"></div>
+        <div class="empty-state" id="empty-trash" style="display:none">
+          <div class="empty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256" fill="currentColor"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></svg></div>
+          <div class="empty-txt">הפח ריק</div>
+        </div>
+      </div>
+
+      <div class="view" id="view-history">
+      
+        <!-- ARCHIVE TAB -->
+        <div id="hist-archive-tab">
+          <div class="hist-tab-sub">פרויקטים שהושלמו ועברו לארכיון</div>
+          <div id="hist-archive-list"></div>
+          <div class="empty-state" id="hist-archive-empty" style="display:none">
+            <div class="empty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256" fill="currentColor"><path d="M223.15,68.72,197.29,42.85A16.08,16.08,0,0,0,186,38H70a16.08,16.08,0,0,0-11.31,4.69L32.85,68.72A16,16,0,0,0,28,79.43V208a16,16,0,0,0,16,16H212a16,16,0,0,0,16-16V79.43A16,16,0,0,0,223.15,68.72ZM70,54H186l18.35,18H51.65ZM212,208H44V88H212Zm-82.34-90.34a8,8,0,0,1,11.31,0l24,24a8,8,0,0,1-11.31,11.31L144,143.31V168a8,8,0,0,1-16,0V143.31l-9.66,9.66a8,8,0,0,1-11.31-11.31Z"/></svg></div>
+            <div class="empty-txt">הארכיון ריק — פרויקטים מסומנים כ"הושלם" יופיעו כאן</div>
+          </div>
+        </div>
+      
+        <!-- LOG TAB -->
+        <div id="hist-log-tab" style="display:none">
+          <div class="hist-tab-sub">כל הפעולות שבוצעו באפליקציה</div>
+          <div id="hist-log-list"></div>
+          <div class="empty-state" id="hist-log-empty" style="display:none">
+            <div class="empty-icon">📋</div>
+            <div class="empty-txt">אין פעילות עדיין</div>
+          </div>
+        </div>
+      
+        <!-- STATS TAB -->
+        <div id="hist-stats-tab" style="display:none">
+          <div id="hist-stats-content"></div>
+        </div>
+
+        <!-- TRASH TAB (embedded in history for mobile access) -->
+        <div id="hist-trash-tab" style="display:none">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+            <div style="font-size:13px;color:var(--muted2)">פריטים שנמחקו ישמרו כאן</div>
+            <button class="btn btn-ghost btn-sm" onclick="emptyTrash()" style="color:var(--danger)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="vertical-align:middle;margin-left:4px"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></svg> רוקן הכל</button>
+          </div>
+          <div id="hist-trash-list"></div>
+          <div class="empty-state" id="hist-trash-empty" style="display:none">
+            <div class="empty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 256 256" fill="currentColor" style="opacity:.3"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></svg></div>
+            <div class="empty-txt">הפח ריק</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- MOBILE TOPBAR -->
+<div class="mobile-topbar" id="mobile-topbar">
+  <div class="mob-topbar-title" id="mob-view-title">צינור הפרויקטים</div>
+  <button class="mob-topbar-btn" onclick="openAddChooser()">＋</button>
+</div>
+
+<!-- MOBILE SCRIPTS SUBHEADER -->
+<div class="mobile-view-subheader" id="mob-subheader-scripts">
+  <button class="filter-chip active" onclick="setScriptFilter('all',this)">הכל</button>
+  <button class="filter-chip" onclick="setScriptFilter('draft',this)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="vertical-align:middle;margin-left:2px"><path d="M163.31,100.69a16,16,0,0,0-22.63,0L72,169.37,56,224l54.63-16L178.69,140a16,16,0,0,0,0-22.63ZM92.37,214,68,221l7-24.33,77.37-77.38,17.37,17.37ZM168,128.69l-17.37-17.38,11.32-11.31,17.37,17.37ZM216,88H152a8,8,0,0,0,0,16h56V208H48V104H96a8,8,0,0,0,0-16H48A16,16,0,0,0,32,104V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V104A16,16,0,0,0,216,88Z"/></svg></button>
+  <button class="filter-chip" onclick="setScriptFilter('ready',this)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="vertical-align:middle;margin-left:2px"><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,182.49,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></svg></button>
+  <button class="filter-chip" onclick="setScriptFilter('filmed',this)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="vertical-align:middle;margin-left:2px"><path d="M216,80H180.92L207.72,53.2a8,8,0,1,0-11.44-11.17l-35.88,36.72a8.07,8.07,0,0,1-1.15.88H147.3l10.08-28.22A8,8,0,0,0,142.38,43l-12.58,35.19a8.22,8.22,0,0,1-.55.88H115.3l10.08-28.22A8,8,0,0,0,110.38,43L97.8,78.19a8.22,8.22,0,0,1-.55.88H40A16,16,0,0,0,24,96V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V96A16,16,0,0,0,216,80Zm0,120H40V96H216Z"/></svg></button>
+  <button class="btn btn-add subheader-btn" onclick="openScriptModal()">＋ חדש</button>
+</div>
+
+<!-- MOBILE HISTORY SUBHEADER -->
+<div class="mobile-view-subheader" id="mob-subheader-history">
+  <button class="filter-chip active" onclick="setHistoryTab('archive',this)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="vertical-align:middle;margin-left:4px"><path d="M223.15,68.72,197.29,42.85A16.08,16.08,0,0,0,186,38H70a16.08,16.08,0,0,0-11.31,4.69L32.85,68.72A16,16,0,0,0,28,79.43V208a16,16,0,0,0,16,16H212a16,16,0,0,0,16-16V79.43A16,16,0,0,0,223.15,68.72ZM70,54H186l18.35,18H51.65ZM212,208H44V88H212V208Zm-82.34-90.34a8,8,0,0,1,11.31,0l24,24a8,8,0,0,1-11.31,11.31L144,143.31V168a8,8,0,0,1-16,0V143.31l-9.66,9.66a8,8,0,0,1-11.31-11.31Z"/></svg> ארכיון</button>
+  <button class="filter-chip" onclick="setHistoryTab('log',this)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="vertical-align:middle;margin-left:4px"><path d="M136,80a8,8,0,0,0-16,0v43.05L96.11,147.2a8,8,0,1,0,11.78,10.8L132.11,131A8,8,0,0,0,136,125Zm-8-56A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Z"/></svg> לוג</button>
+  <button class="filter-chip" onclick="setHistoryTab('stats',this)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="vertical-align:middle;margin-left:4px"><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V96H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v48H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160Zm-56,64h40V200H104Zm-48,48h32v40H56Z"/></svg> סטטיסטיקות</button>
+  <button class="filter-chip" onclick="setHistoryTab('trash',this)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="vertical-align:middle;margin-left:4px"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></svg> פח</button>
+  <input class="subheader-search" placeholder="חיפוש..." oninput="document.getElementById('history-search').value=this.value;renderHistory()">
+</div>
+
+<!-- MOBILE FAB -->
+<button class="mobile-fab" id="mobile-fab" onclick="openAddChooser()">＋</button>
+
+<!-- MOBILE TABBAR -->
+<div class="mobile-tabbar">
+  <div class="mobile-tabs">
+    <button class="mob-tab active" data-view="pipeline" onclick="goView('pipeline',this)">
+      <span class="mti"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="display:block;margin:0 auto 2px"><path d="M232,72a8,8,0,0,0-4.44.68L176,96.63V88a16,16,0,0,0-16-16H32a16,16,0,0,0-16,16V168a16,16,0,0,0,16,16H160a16,16,0,0,0,16-16v-8.63l51.56,23.95A8,8,0,0,0,240,184V80A8,8,0,0,0,232,72ZM160,168H32V88H160v80Zm64-4.63-48-22.31V114.94L224,92.63Z"/></svg></span>צינור
+    </button>
+    <button class="mob-tab" data-view="clients" onclick="goView('clients',this)">
+      <span class="mti"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="display:block;margin:0 auto 2px"><path d="M240,208H224V96a16,16,0,0,0-16-16H152V48a16,16,0,0,0-16-16H48A16,16,0,0,0,32,48V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM48,48h88V208H136V160a8,8,0,0,0-8-8H80a8,8,0,0,0-8,8v48H48Zm56,160H88V168h16Zm64,0V96h48V208Z"/></svg></span>לקוחות
+    </button>
+    <button class="mob-tab" data-view="calendar" onclick="goView('calendar',this)">
+      <span class="mti"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="display:block;margin:0 auto 2px"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208Z"/></svg></span>לוח שנה
+    </button>
+    <button class="mob-tab" data-view="scripts" onclick="goView('scripts',this)">
+      <span class="mti"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor" style="display:block;margin:0 auto 2px"><path d="M163.31,100.69a16,16,0,0,0-22.63,0L72,169.37,56,224l54.63-16L178.69,140a16,16,0,0,0,0-22.63ZM92.37,214,68,221l7-24.33,77.37-77.38,17.37,17.37ZM168,128.69l-17.37-17.38,11.32-11.31,17.37,17.37ZM216,88H152a8,8,0,0,0,0,16h56V208H48V104H96a8,8,0,0,0,0-16H48A16,16,0,0,0,32,104V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V104A16,16,0,0,0,216,88Z"/></svg></span>תסריטים
+      <span class="mob-tab-badge" id="mob-scripts-badge" style="display:none">0</span>
+    </button>
+    <button class="mob-tab" data-view="payments" onclick="goView('payments',this)">
+      <span class="mti"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="display:block;margin:0 auto 2px"><path d="M152,120H136V72h16a24,24,0,0,1,24,24,8,8,0,0,0,16,0,40,40,0,0,0-40-40H136V40a8,8,0,0,0-16,0V56H104a40,40,0,0,0,0,80h16v48H104a24,24,0,0,1-24-24,8,8,0,0,0-16,0,40,40,0,0,0,40,40h16v16a8,8,0,0,0,16,0V200h16a40,40,0,0,0,0-80Zm-48,0a24,24,0,0,1,0-48h16v48Zm48,64H136V136h16a24,24,0,0,1,0,48Z"/></svg></span>תשלומים
+    </button>
+    <button class="mob-tab" data-view="trash" onclick="goView('trash',this)">
+      <span class="mti"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="display:block;margin:0 auto 2px"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></svg></span>פח
+      <span class="mob-tab-badge" id="mob-trash-badge" style="display:none;background:var(--muted)">0</span>
+    </button>
+    <button class="mob-tab" data-view="history" onclick="goView('history',this)">
+      <span class="mti"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M136,80v43.47l36.12,21.67a8,8,0,0,1-8.24,13.72l-40-24A8,8,0,0,1,120,128V80a8,8,0,0,1,16,0Zm-8-48A95.44,95.44,0,0,0,60.08,60.15L52,52A8,8,0,0,0,38.69,63.45l24,80a8,8,0,0,0,5,5,8.14,8.14,0,0,0,2.46.38,8,8,0,0,0,5.15-1.88l64-56A8,8,0,0,0,134,78.29c-1.9.12-3.81.18-5.72.18ZM94.71,130.71,79.67,79.36l20.85,14.57A79.07,79.07,0,0,1,128,88c1.59,0,3.2,0,4.78.1ZM224,128a96,96,0,1,1-96-96,8,8,0,0,1,0,16,80,80,0,1,0,80,80,8,8,0,0,1,16,0Z"/></svg></span>היסטוריה
+      <span class="mob-tab-badge" id="mob-archive-badge" style="display:none;background:#6c63ff">0</span>
+    </button>
+  </div>
+</div>
+
+<!-- SHOOT-DAY PANEL -->
+<div class="sdp-overlay" id="sdp-overlay" onclick="if(event.target===this)closeSDP()">
+  <div class="sdp-panel">
+    <div class="sdp-hdr">
+      <div class="sdp-badge">
+        <div class="sdp-badge-d" id="sdp-day"></div>
+        <div class="sdp-badge-m" id="sdp-mon"></div>
+      </div>
+      <div class="sdp-ttl" id="sdp-title"></div>
+      <button class="sdp-x" onclick="closeSDP()">✕</button>
+    </div>
+    <div class="sdp-sec">פרויקטים עם דד-ליין ביום זה</div>
+    <div id="sdp-projs"></div>
+    <div class="sdp-sec">תסריטים ליום צילום זה</div>
+    <div id="sdp-scrips"></div>
+    <div class="sdp-foot">
+      <button class="sdp-btn" onclick="sdpOpenScript()">+ תסריט</button>
+      <button class="sdp-btn sdp-btn-gcal" onclick="sdpToGCal()">📅 Google Cal</button>
+      <button class="sdp-btn sdp-btn-primary" onclick="sdpOpenProj()">+ פרויקט</button>
+    </div>
+  </div>
+</div>
+
+<!-- SHARE PAGE -->
+<div class="share-page" id="share-page">
+  <div class="sh-logo">🎬 Reel Studio</div>
+  <div class="sh-client-name" id="sh-cname"></div>
+  <div class="sh-sub">עדכון התקדמות פרויקטים</div>
+  <div id="sh-content"></div>
+</div>
+
+<!-- SHARE URL MODAL -->
+<div class="overlay" id="overlay-share" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head">
+      <div class="modal-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M240,88.23a54.43,54.43,0,0,1-16,37L189.25,160a54.27,54.27,0,0,1-38.63,16h-.05A54.63,54.63,0,0,1,96,119.84a8,8,0,0,1,16,.45A38.62,38.62,0,0,0,150.58,160h0a38.39,38.39,0,0,0,27.31-11.31l34.75-34.75a38.63,38.63,0,0,0-54.63-54.63l-11,11A8,8,0,0,1,135.7,59l11-11A54.65,54.65,0,0,1,224,48,54.86,54.86,0,0,1,240,88.23ZM109,185.66l-11,11A38.41,38.41,0,0,1,70.6,208h0a38.63,38.63,0,0,1-27.29-65.94L78,107.31A38.63,38.63,0,0,1,144,135.71a8,8,0,0,0,16,.45A54.86,54.86,0,0,0,144,96a54.65,54.65,0,0,0-77.27,0L32,130.75A54.62,54.62,0,0,0,70.56,224h0a54.28,54.28,0,0,0,38.64-16l11-11A8,8,0,0,0,109,185.66Z"/></svg> שתף עם לקוח</div>
+      <button class="btn-close" onclick="document.getElementById('overlay-share').classList.remove('open')">✕</button>
+    </div>
+    <p style="font-size:12px;color:var(--muted2);margin-bottom:12px;line-height:1.6">הלקוח יראה רק את שלבי ההתקדמות — ללא מחירים או פרטי לקוחות אחרים.</p>
+    <div class="share-url-box" id="share-url-box"></div>
+    <button class="share-copy-btn" onclick="copyShareUrl()">📋 העתק קישור</button>
+  </div>
+</div>
+
+<!-- SCRIPT MODAL -->
+<div class="overlay" id="overlay-script" onclick="if(event.target===this)closeScriptModal()">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="sc-modal-title">תסריט חדש</div>
+      <button class="btn-close" onclick="closeScriptModal()">✕</button>
+    </div>
+    <div class="form-2col">
+      <div class="fg"><label class="fl">כותרת *</label><input class="fi" id="sc-title" placeholder="שם התסריט"></div>
+      <div class="fg"><label class="fl">לקוח</label><div class="cl-picker-wrap" id="clp-wrap-sc-client">
+          <button type="button" class="cl-picker-trigger" id="clp-btn-sc-client" onclick="toggleClPicker('sc-client')">
+            <span id="clp-label-sc-client" style="color:var(--muted2)">בחר לקוח...</span>
+            <span class="cl-picker-arrow">▼</span>
+          </button>
+          <input type="hidden" id="sc-client">
+          <div class="cl-picker-dropdown" id="clp-drop-sc-client"></div>
+        </div></div>
+    </div>
+    <div class="form-2col">
+      <div class="fg"><label class="fl">יום צילום</label><div class="date-picker-wrap" id="dpw-sc-shoot-date" onclick="openDatePicker('sc-shoot-date')">
+  <input type="hidden" id="sc-shoot-date">
+  <div class="date-picker-display" id="dpd-sc-shoot-date">בחר תאריך...</div>
+  <span class="date-picker-icon">📅</span>
+</div></div>
+      <div class="fg"><label class="fl">סטטוס</label>
+        <div class="sc-status-picker" id="sc-status-wrap">
+          <button type="button" class="fi sc-status-btn" id="sc-status-btn" onclick="toggleScStatus(event)">
+            <span id="sc-status-label" style="display:flex;align-items:center;gap:6px;flex:1"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 256 256" fill="currentColor" style="opacity:.45;flex-shrink:0"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+          </button>
+          <input type="hidden" id="sc-status" value="draft">
+          <div class="sc-status-drop" id="sc-status-drop">
+            <div class="sc-status-opt" data-val="draft" onclick="setScStatus('draft')"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M163.31,100.69a16,16,0,0,0-22.63,0L72,169.37,56,224l54.63-16L178.69,140a16,16,0,0,0,0-22.63ZM92.37,214,68,221l7-24.33,77.37-77.38,17.37,17.37ZM168,128.69l-17.37-17.38,11.32-11.31,17.37,17.37ZM216,88H152a8,8,0,0,0,0,16h56V208H48V104H96a8,8,0,0,0,0-16H48A16,16,0,0,0,32,104V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V104A16,16,0,0,0,216,88Z"/></svg><span>טיוטה</span></div>
+            <div class="sc-status-opt" data-val="ready" onclick="setScStatus('ready')"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,182.49,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></svg><span>מוכן לצילום</span></div>
+            <div class="sc-status-opt" data-val="filmed" onclick="setScStatus('filmed')"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M216,80H180.92L207.72,53.2a8,8,0,1,0-11.44-11.17l-35.88,36.72a8.07,8.07,0,0,1-1.15.88H147.3l10.08-28.22A8,8,0,0,0,142.38,43l-12.58,35.19a8.22,8.22,0,0,1-.55.88H115.3l10.08-28.22A8,8,0,0,0,110.38,43L97.8,78.19a8.22,8.22,0,0,1-.55.88H40A16,16,0,0,0,24,96V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V96A16,16,0,0,0,216,80Zm0,120H40V96H216Z"/></svg><span>צולם</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">תיאור הסצנה</label><textarea class="fi" id="sc-scene" rows="3" placeholder="מה מצלמים? איפה? אווירה..." style="resize:vertical;min-height:65px"></textarea></div>
+    <div class="fg"><label class="fl">טקסט לדיבור / כיתוב</label><textarea class="fi" id="sc-voiceover" rows="3" placeholder="הטקסט שיאמר או יופיע..." style="resize:vertical;min-height:65px"></textarea></div>
+    <div class="fg"><label class="fl">הוראות צילום</label><textarea class="fi" id="sc-camera" rows="2" placeholder="זוויות, תנועות מצלמה, תאורה..." style="resize:vertical;min-height:55px"></textarea></div>
+    <div class="fg"><label class="fl">הערות לעריכה</label><textarea class="fi" id="sc-edit-notes" rows="2" placeholder="מוזיקה, אפקטים, קצב..." style="resize:vertical;min-height:55px"></textarea></div>
+    <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+      <button class="btn btn-primary" id="sc-save-more-btn" onclick="saveScriptAndAddMore()" style="flex:1;background:linear-gradient(135deg,#6c63ff,#a78bfa);border:none;color:#fff;padding:10px 14px;border-radius:10px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">💾 שמור והוסף עוד</button>
+      <button class="btn btn-primary" onclick="saveScript()" style="flex:1">שמור תסריט</button>
+      <button onclick="saveScriptAndGCal()" style="background:#1a73e818;border:1px solid #1a73e840;color:#4a90d9;padding:10px 12px;border-radius:10px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">📅 + Google Cal</button>
+      <button class="btn btn-ghost btn-sm" onclick="closeScriptModal()">ביטול</button>
+      <button class="btn btn-sm" id="sc-del-btn" style="display:none;background:rgba(255,60,110,.15);border:1px solid rgba(255,60,110,.3);color:var(--danger)" onclick="deleteScript()">מחק</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="modal-ttl">פרויקט חדש</div>
+      <button class="x-btn" onclick="closeModal()">✕</button>
+    </div>
+
+    <div class="form-2col">
+      <div class="fg">
+        <label class="fl">שם הפרויקט *</label>
+        <input class="fi" id="fn" placeholder='למשל: "רילס קמפיין מרץ"'>
+      </div>
+      <div class="fg">
+        <label class="fl">לקוח *</label>
+        <input class="fi" id="fc" placeholder="שם החברה" list="fc-list" autocomplete="off" oninput="updateFcList()">
+        <datalist id="fc-list"></datalist>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label class="fl">שלב בייצור</label>
+      <div class="stage-grid" id="stage-grid">
+        <div class="stage-opt active" data-stage="script" style="border-color:#6c63ff33; color:#6c63ff;" onclick="selectStage('script')"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor" style="display:block;margin:0 auto 2px"><path d="M163.31,100.69a16,16,0,0,0-22.63,0L72,169.37,56,224l54.63-16L178.69,140a16,16,0,0,0,0-22.63ZM92.37,214,68,221l7-24.33,77.37-77.38,17.37,17.37ZM168,128.69l-17.37-17.38,11.32-11.31,17.37,17.37ZM216,88H152a8,8,0,0,0,0,16h56V208H48V104H96a8,8,0,0,0,0-16H48A16,16,0,0,0,32,104V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V104A16,16,0,0,0,216,88Z"/></svg><br>תסריט</div>
+        <div class="stage-opt" data-stage="filming" onclick="selectStage('filming')"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor" style="display:block;margin:0 auto 2px"><path d="M216,80H180.92L207.72,53.2a8,8,0,1,0-11.44-11.17l-35.88,36.72a8.07,8.07,0,0,1-1.15.88H147.3l10.08-28.22A8,8,0,0,0,142.38,43l-12.58,35.19a8.22,8.22,0,0,1-.55.88H115.3l10.08-28.22A8,8,0,0,0,110.38,43L97.8,78.19a8.22,8.22,0,0,1-.55.88H40A16,16,0,0,0,24,96V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V96A16,16,0,0,0,216,80Zm0,120H40V96H216Z"/></svg><br>צילום</div>
+        <div class="stage-opt" data-stage="editing" onclick="selectStage('editing')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M157.73,113.13A8,8,0,0,1,159.82,102L227.48,55.7a8,8,0,0,1,9,13.21l-67.67,46.3a7.92,7.92,0,0,1-4.51,1.4A8,8,0,0,1,157.73,113.13Zm80.87,85.09a8,8,0,0,1-11.12,2.08L136,137.7,93.49,166.78a36,36,0,1,1-9-13.19L121.83,128,84.44,102.41a35.86,35.86,0,1,1,9-13.19l143,97.87A8,8,0,0,1,238.6,198.22ZM80,180a20,20,0,1,0-5.86,14.14A19.85,19.85,0,0,0,80,180ZM74.14,90.13a20,20,0,1,0-28.28,0A19.85,19.85,0,0,0,74.14,90.13Z"/></svg><br>עריכה</div>
+        <div class="stage-opt" data-stage="approval" onclick="selectStage('approval')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,182.49,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></svg><br>אישור</div>
+        <div class="stage-opt" data-stage="published" onclick="selectStage('published')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Z"/></svg><br>פורסם</div>
+      </div>
+    </div>
+
+    <div class="form-3col">
+      <div class="fg">
+        <label class="fl">תאריך יעד</label>
+        <div class="date-picker-wrap" id="dpw-fd" onclick="openDatePicker('fd')">
+  <input type="hidden" id="fd">
+  <div class="date-picker-display" id="dpd-fd">בחר תאריך...</div>
+  <span class="date-picker-icon">📅</span>
+</div>
+      </div>
+      <div class="fg">
+        <label class="fl">שכר (₪)</label>
+        <input class="fi" id="fp" type="number" placeholder="0">
+      </div>
+      <div class="fg">
+        <label class="fl">תשלום</label>
+        <div class="fpaid-picker" id="fpaid-wrap">
+          <button type="button" class="fi fpaid-btn" id="fpaid-btn" onclick="toggleFpaid(event)">
+            <span id="fpaid-label" style="display:flex;align-items:center;gap:6px;flex:1"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="opacity:.5;flex-shrink:0"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+          </button>
+          <input type="hidden" id="fpaid" value="unpaid">
+          <div class="fpaid-drop" id="fpaid-drop">
+            <div class="sc-status-opt fpaid-opt" data-val="unpaid" onclick="setFpaid('unpaid')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 256 256" fill="currentColor" style="color:#ef4444"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-68a28,28,0,0,1-28,28v4a8,8,0,0,1-16,0v-4H112a8,8,0,0,1,0-16h32a12,12,0,0,0,0-24H112a28,28,0,0,1,0-56v-4a8,8,0,0,1,16,0v4h12a8,8,0,0,1,0,16H112a12,12,0,0,0,0,24h16A28,28,0,0,1,168,148Z"/></svg>
+              <span>לא שולם</span>
+            </div>
+            <div class="sc-status-opt fpaid-opt" data-val="partial" onclick="setFpaid('partial')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 256 256" fill="currentColor" style="color:#f59e0b"><path d="M232,128A104,104,0,1,1,128,24,104.13,104.13,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM88,128a40,40,0,1,1,40,40A40,40,0,0,1,88,128Z"/></svg>
+              <span>חלקי</span>
+            </div>
+            <div class="sc-status-opt fpaid-opt" data-val="paid" onclick="setFpaid('paid')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 256 256" fill="currentColor" style="color:#22c55e"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.13,104.13,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>
+              <span>שולם ✓</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label class="fl">סוג תוכן</label>
+      <select class="fi" id="ftype">
+        <option value="reel">📱 ריל / TikTok</option>
+        <option value="short">⚡ Short / YouTube</option>
+        <option value="story">✨ סטורי</option>
+        <option value="long">🎞️ וידאו ארוך</option>
+        <option value="ad">📢 פרסומת</option>
+      </select>
+    </div>
+
+    <div class="fg">
+      <label class="fl">הערות</label>
+      <textarea class="fi" id="fnotes" placeholder="לינקים, הנחיות, דרישות מיוחדות..."></textarea>
+    </div>
+
+    <div class="fg">
+      <label class="fl"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M240,88.23a54.43,54.43,0,0,1-16,37L189.25,160a54.27,54.27,0,0,1-38.63,16h-.05A54.63,54.63,0,0,1,96,119.84a8,8,0,0,1,16,.45A38.62,38.62,0,0,0,150.58,160h0a38.39,38.39,0,0,0,27.31-11.31l34.75-34.75a38.63,38.63,0,0,0-54.63-54.63l-11,11A8,8,0,0,1,135.7,59l11-11A54.65,54.65,0,0,1,224,48,54.86,54.86,0,0,1,240,88.23ZM109,185.66l-11,11A38.41,38.41,0,0,1,70.6,208h0a38.63,38.63,0,0,1-27.29-65.94L78,107.31A38.63,38.63,0,0,1,144,135.71a8,8,0,0,0,16,.45A54.86,54.86,0,0,0,144,96a54.65,54.65,0,0,0-77.27,0L32,130.75A54.62,54.62,0,0,0,70.56,224h0a54.28,54.28,0,0,0,38.64-16l11-11A8,8,0,0,0,109,185.66Z"/></svg> קישור Google Drive</label>
+      <input class="fi" id="fdrive" type="url" placeholder="https://drive.google.com/...">
+    </div>
+
+    <div class="fg" id="versions-section" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <label class="fl" style="margin-bottom:0">📋 היסטוריית גרסאות</label>
+        <button onclick="addVersion()" style="background:var(--s3);border:1px solid var(--border2);color:var(--text);padding:4px 10px;border-radius:7px;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer">+ גרסה</button>
+      </div>
+      <div id="versions-list"></div>
+    </div>
+
+    <div class="fg">
+      <label class="fl"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l32.29-17.56,80.35,44ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z"/></svg> קבצים מצורפים</label>
+      <div class="file-dropzone" id="dropzone"
+           ondragover="dzOver(event)" ondragleave="dzLeave(event)" ondrop="dzDrop(event)">
+        <input type="file" id="file-input" multiple accept="image/*,video/*,.pdf,.doc,.docx,.txt,.mp3"
+               onchange="handleFiles(this.files)">
+        <div class="dz-folder-wrap">
+  <div class="dz-folder">
+    <div class="dz-folder-back"></div>
+    <div class="dz-folder-tab"></div>
+    <div class="dz-folder-front">
+      <div class="dz-folder-files">
+        <div class="dz-folder-file"></div>
+        <div class="dz-folder-file"></div>
+        <div class="dz-folder-file"></div>
+      </div>
+    </div>
+  </div>
+</div>
+        <div class="dropzone-txt"><strong>לחץ לבחירה</strong> או גרור קבצים לכאן</div>
+        <div class="dropzone-txt" style="margin-top:2px;font-size:10px;">תמונות · וידאו · PDF · מסמכים</div>
+      </div>
+      <div class="files-grid" id="files-preview"></div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-save" onclick="saveProj()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M219.31,72,184,36.69A15.86,15.86,0,0,0,172.69,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V83.31A15.86,15.86,0,0,0,219.31,72ZM168,208H88V152h80Zm40,0H184V152a16,16,0,0,0-16-16H88a16,16,0,0,0-16,16v56H48V48H172.69L208,83.31ZM160,72a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h56A8,8,0,0,1,160,72Z"/></svg> שמור</button>
+      <button id="wa-modal-btn" style="display:none;background:#25D36618;border:1px solid #25D36640;color:#25D366;padding:10px 14px;border-radius:10px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap" onclick="maybeShowWaPrompt(editId,'approval')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-left:4px"><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6.54-.67L40,216l12.48-37.4a8,8,0,0,0-.67-6.54A88,88,0,1,1,128,216Z"/></svg> WhatsApp
+      </button>
+      <button class="btn btn-ghost" onclick="closeModal()">ביטול</button>
+      <button class="btn-del" id="del-btn" style="display:none" onclick="deleteProj()">🗑️</button>
+    <button id="archive-btn" style="display:none;background:#6c63ff18;border:1px solid #6c63ff44;color:#a78bfa;padding:8px 14px;border-radius:10px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer" onclick="archiveProject(editId);closeModal()"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0;margin-left:3px"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l32.29-17.56,80.35,44ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z"/></svg> ארכיון</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- CLIENT DETAIL PANEL -->
+<div class="client-detail-overlay" id="client-overlay" onclick="handleCPOverlayClick(event)">
+  <div class="client-panel" id="client-panel">
+
+    <div class="cp-header cp-fade-1">
+      <div class="cp-avatar" id="cp-avatar"></div>
+      <div class="cp-name-row">
+        <input class="cp-name" id="cp-name-input" placeholder="שם הלקוח" oninput="cpNameUpdate(this.value)">
+        <div class="cp-sub" id="cp-sub-txt"></div>
+      </div>
+      <button class="cp-close" onclick="closeClientPanel()">✕</button>
+    </div>
+
+    <div class="cp-stats cp-fade-2" id="cp-stats"></div>
+
+    <div class="cp-body">
+
+      <!-- Contact details -->
+      <div class="cp-fade-3">
+        <div class="cp-section-title">פרטי קשר</div>
+        <div class="cp-fields">
+          <div class="cp-field">
+            <label><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46Z"/></svg> טלפון</label>
+            <input id="cp-phone" type="tel" placeholder="050-0000000">
+          </div>
+          <div class="cp-field">
+            <label><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z"/></svg> אימייל</label>
+            <input id="cp-email" type="email" placeholder="name@company.com">
+          </div>
+          <div class="cp-field">
+            <label><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm88,104a87.61,87.61,0,0,1-3.33,24H174.16a157.44,157.44,0,0,0,0-48h38.51A87.61,87.61,0,0,1,216,128ZM102,168H154a115.11,115.11,0,0,1-26,45A115.27,115.27,0,0,1,102,168Zm-3.9-16a140.84,140.84,0,0,1,0-48h59.88a140.84,140.84,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.84a157.44,157.44,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154,88H102a115.11,115.11,0,0,1,26-45A115.27,115.27,0,0,1,154,88Zm52.33,0H170.71a135.28,135.28,0,0,0-22.3-45.6A88.29,88.29,0,0,1,206.37,88ZM107.59,42.4A135.28,135.28,0,0,0,85.29,88H49.63A88.29,88.29,0,0,1,107.59,42.4ZM49.63,168H85.29a135.28,135.28,0,0,0,22.3,45.6A88.29,88.29,0,0,1,49.63,168Zm98.78,45.6a135.28,135.28,0,0,0,22.3-45.6h35.66A88.29,88.29,0,0,1,148.41,213.6Z"/></svg> אתר</label>
+            <input id="cp-website" placeholder="www.company.com">
+          </div>
+          <div class="cp-field">
+            <label><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg> כתובת</label>
+            <input id="cp-address" placeholder="עיר, רחוב">
+          </div>
+          <div class="cp-field" style="grid-column: span 2">
+            <label><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"/></svg> איש קשר</label>
+            <input id="cp-contact" placeholder="שם + תפקיד">
+          </div>
+        </div>
+      </div>
+
+      <!-- Package Summary + Videos -->
+      <div class="cp-fade-4" id="cp-package-section">
+        <div class="cp-section-title" style="justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <span>חבילה פעילה</span>
+          <button onclick="openPackageSettings()" style="background:var(--s2);border:1px solid var(--border2);color:var(--muted2);padding:4px 12px;border-radius:8px;font-size:11px;cursor:pointer;font-family:inherit;transition:all 0.15s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted2)'"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l32.29-17.56,80.35,44ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z"/></svg> הגדרות חבילה</button>
+        </div>
+        <div id="cp-package-summary"></div>
+        <div class="cp-proj-cards" id="cp-projects"></div>
+      </div>
+
+      <!-- No-package project list -->
+      <div class="cp-fade-4" id="cp-nopackage-section" style="display:none">
+        <div class="cp-section-title" style="justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <span>פרויקטים</span>
+          <button onclick="openPackageSettings()" style="background:var(--s2);border:1px solid var(--border2);color:var(--muted2);padding:4px 12px;border-radius:8px;font-size:11px;cursor:pointer;font-family:inherit;transition:all 0.15s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted2)'">+ הוסף חבילה</button>
+        </div>
+        <div class="cp-proj-cards" id="cp-projects-nopackage"></div>
+      </div>
+
+      <!-- Notes -->
+      <div>
+        <div class="cp-section-title">הערות על הלקוח</div>
+        <textarea class="cp-note-area" id="cp-notes" placeholder="מידע חשוב, העדפות, שפת תקשורת, הערות כלליות..."></textarea>
+      </div>
+
+    </div>
+
+    <div class="cp-footer">
+      <button class="cp-save" onclick="saveClientData()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M219.31,72,184,36.69A15.86,15.86,0,0,0,172.69,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V83.31A15.86,15.86,0,0,0,219.31,72ZM168,208H88V152h80Zm40,0H184V152a16,16,0,0,0-16-16H88a16,16,0,0,0-16,16v56H48V48H172.69L208,83.31ZM160,72a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h56A8,8,0,0,1,160,72Z"/></svg> שמור פרטים</button>
+      <button class="cp-new-proj" onclick="cpAddVideo()">+ סרטון חדש</button>
+      <button onclick="openShareModal()" style="background:#1a73e818;border:1px solid #1a73e840;color:#4a90d9;padding:10px 14px;border-radius:10px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s" onmouseover="this.style.background='#1a73e830'" onmouseout="this.style.background='#1a73e818'">🔗 שתף</button>
+      <button class="cp-del-client" onclick="cpDeleteClient()">🗑️</button>
+    </div>
+
+  </div>
+</div>
+<!-- PACKAGE SETTINGS MODAL -->
+<div class="overlay" id="overlay-package">
+  <div class="modal" style="max-width:480px;">
+    <div class="modal-head">
+      <div class="modal-title"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l32.29-17.56,80.35,44ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z"/></svg> הגדרות חבילה</div>
+      <button class="x-btn" onclick="closePackageSettings()">✕</button>
+    </div>
+    <div class="fg">
+      <label class="fl">שם החבילה</label>
+      <input class="fi" id="pkg-name" placeholder='למשל: "חבילה חודשית מרץ"'>
+    </div>
+    <div class="form-2col">
+      <div class="fg">
+        <label class="fl">🎬 מספר סרטונים בחבילה</label>
+        <input class="fi" id="pkg-total" type="number" min="1" max="50" placeholder="10">
+      </div>
+      <div class="fg">
+        <label class="fl">💰 מחיר כולל לחבילה (₪)</label>
+        <input class="fi" id="pkg-price" type="number" placeholder="5000">
+      </div>
+    </div>
+    <div class="form-2col">
+      <div class="fg">
+        <label class="fl">📅 תאריך התחלה</label>
+        <div class="date-picker-wrap" id="dpw-pkg-start" onclick="openDatePicker('pkg-start')">
+  <input type="hidden" id="pkg-start">
+  <div class="date-picker-display" id="dpd-pkg-start">בחר תאריך...</div>
+  <span class="date-picker-icon">📅</span>
+</div>
+      </div>
+      <div class="fg">
+        <label class="fl">📅 תאריך סיום</label>
+        <div class="date-picker-wrap" id="dpw-pkg-end" onclick="openDatePicker('pkg-end')">
+  <input type="hidden" id="pkg-end">
+  <div class="date-picker-display" id="dpd-pkg-end">בחר תאריך...</div>
+  <span class="date-picker-icon">📅</span>
+</div>
+      </div>
+    </div>
+    <div class="fg">
+      <label class="fl">תשלום חבילה</label>
+      <select class="fi" id="pkg-paid">
+        <option value="unpaid">לא שולם</option>
+        <option value="partial">שולם חלקית</option>
+        <option value="paid">שולם במלואו ✓</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-save" onclick="savePackageSettings()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M219.31,72,184,36.69A15.86,15.86,0,0,0,172.69,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V83.31A15.86,15.86,0,0,0,219.31,72ZM168,208H88V152h80Zm40,0H184V152a16,16,0,0,0-16-16H88a16,16,0,0,0-16,16v56H48V48H172.69L208,83.31ZM160,72a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h56A8,8,0,0,1,160,72Z"/></svg> שמור הגדרות</button>
+      <button class="btn btn-ghost" onclick="closePackageSettings()">ביטול</button>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO IN PACKAGE MODAL -->
+<div class="overlay" id="overlay-video">
+  <div class="modal" style="max-width:500px;">
+    <div class="modal-head">
+      <div class="modal-title" id="vid-modal-title">סרטון #<span id="vid-modal-num"></span></div>
+      <button class="x-btn" onclick="closeVideoModal()">✕</button>
+    </div>
+    <div class="fg">
+      <label class="fl">כותרת / תיאור הסרטון</label>
+      <input class="fi" id="vid-name" placeholder='למשל: "טיפ מספר 1 — תזונה"'>
+    </div>
+    <div class="fg">
+      <label class="fl">שלב בייצור</label>
+      <div class="stage-grid" id="vid-stage-grid">
+        <div class="vstage-opt" data-stage="script" onclick="selectVidStage('script')" style="padding:8px 4px;border-radius:8px;text-align:center;background:var(--s2);border:1px solid var(--border2);cursor:pointer;font-size:11px;color:var(--muted2);transition:all 0.15s;font-weight:600;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor" style="display:block;margin:0 auto 2px"><path d="M163.31,100.69a16,16,0,0,0-22.63,0L72,169.37,56,224l54.63-16L178.69,140a16,16,0,0,0,0-22.63ZM92.37,214,68,221l7-24.33,77.37-77.38,17.37,17.37ZM168,128.69l-17.37-17.38,11.32-11.31,17.37,17.37ZM216,88H152a8,8,0,0,0,0,16h56V208H48V104H96a8,8,0,0,0,0-16H48A16,16,0,0,0,32,104V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V104A16,16,0,0,0,216,88Z"/></svg><br>אישור תסריט</div>
+        <div class="vstage-opt" data-stage="filming" onclick="selectVidStage('filming')" style="padding:8px 4px;border-radius:8px;text-align:center;background:var(--s2);border:1px solid var(--border2);cursor:pointer;font-size:11px;color:var(--muted2);transition:all 0.15s;font-weight:600;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor" style="display:block;margin:0 auto 2px"><path d="M216,80H180.92L207.72,53.2a8,8,0,1,0-11.44-11.17l-35.88,36.72a8.07,8.07,0,0,1-1.15.88H147.3l10.08-28.22A8,8,0,0,0,142.38,43l-12.58,35.19a8.22,8.22,0,0,1-.55.88H115.3l10.08-28.22A8,8,0,0,0,110.38,43L97.8,78.19a8.22,8.22,0,0,1-.55.88H40A16,16,0,0,0,24,96V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V96A16,16,0,0,0,216,80Zm0,120H40V96H216Z"/></svg><br>צילום</div>
+        <div class="vstage-opt" data-stage="editing" onclick="selectVidStage('editing')" style="padding:8px 4px;border-radius:8px;text-align:center;background:var(--s2);border:1px solid var(--border2);cursor:pointer;font-size:11px;color:var(--muted2);transition:all 0.15s;font-weight:600;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M157.73,113.13A8,8,0,0,1,159.82,102L227.48,55.7a8,8,0,0,1,9,13.21l-67.67,46.3a7.92,7.92,0,0,1-4.51,1.4A8,8,0,0,1,157.73,113.13Zm80.87,85.09a8,8,0,0,1-11.12,2.08L136,137.7,93.49,166.78a36,36,0,1,1-9-13.19L121.83,128,84.44,102.41a35.86,35.86,0,1,1,9-13.19l143,97.87A8,8,0,0,1,238.6,198.22ZM80,180a20,20,0,1,0-5.86,14.14A19.85,19.85,0,0,0,80,180ZM74.14,90.13a20,20,0,1,0-28.28,0A19.85,19.85,0,0,0,74.14,90.13Z"/></svg><br>עריכה</div>
+        <div class="vstage-opt" data-stage="approval" onclick="selectVidStage('approval')" style="padding:8px 4px;border-radius:8px;text-align:center;background:var(--s2);border:1px solid var(--border2);cursor:pointer;font-size:11px;color:var(--muted2);transition:all 0.15s;font-weight:600;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,182.49,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></svg><br>אישור לקוח</div>
+        <div class="vstage-opt" data-stage="published" onclick="selectVidStage('published')" style="padding:8px 4px;border-radius:8px;text-align:center;background:var(--s2);border:1px solid var(--border2);cursor:pointer;font-size:11px;color:var(--muted2);transition:all 0.15s;font-weight:600;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Z"/></svg><br>פורסם</div>
+      </div>
+    </div>
+    <div class="form-2col">
+      <div class="fg">
+        <label class="fl">📅 דד-ליין</label>
+        <div class="date-picker-wrap" id="dpw-vid-deadline" onclick="openDatePicker('vid-deadline')">
+  <input type="hidden" id="vid-deadline">
+  <div class="date-picker-display" id="dpd-vid-deadline">בחר תאריך...</div>
+  <span class="date-picker-icon">📅</span>
+</div>
+      </div>
+      <div class="fg">
+        <label class="fl">🔗 Google Drive</label>
+        <input class="fi" id="vid-drive" type="url" placeholder="https://drive.google.com/...">
+      </div>
+    </div>
+    <div class="fg">
+      <label class="fl">הערות</label>
+      <textarea class="fi" id="vid-notes" rows="2" placeholder="תסריט, הנחיות, לינקים..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-save" onclick="saveVideoInPackage()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M219.31,72,184,36.69A15.86,15.86,0,0,0,172.69,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V83.31A15.86,15.86,0,0,0,219.31,72ZM168,208H88V152h80Zm40,0H184V152a16,16,0,0,0-16-16H88a16,16,0,0,0-16,16v56H48V48H172.69L208,83.31ZM160,72a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h56A8,8,0,0,1,160,72Z"/></svg> שמור</button>
+      <button class="btn btn-ghost" onclick="closeVideoModal()">ביטול</button>
+    </div>
+  </div>
+</div>
+
+<!-- TRACKING MODAL -->
+<div class="overlay" id="overlay-tracking">
+  <div class="modal" style="width:580px;">
+    <div class="modal-head">
+      <div class="modal-title" id="tracking-modal-title">הוסף נתוני ביצועים</div>
+      <button class="x-btn" onclick="document.getElementById('overlay-tracking').classList.remove('open')">✕</button>
+    </div>
+    <div class="form-2col">
+      <div class="fg">
+        <label class="fl">פרויקט</label>
+        <select class="fi" id="tr-project"></select>
+      </div>
+      <div class="fg">
+        <label class="fl">פלטפורמה</label>
+        <select class="fi" id="tr-platform">
+          <option value="tiktok">📱 TikTok</option>
+          <option value="instagram">📸 Instagram Reels</option>
+          <option value="youtube">▶️ YouTube Shorts</option>
+          <option value="facebook">👥 Facebook</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-2col">
+      <div class="fg">
+        <label class="fl">תאריך העלאה</label>
+        <div class="date-picker-wrap" id="dpw-tr-date" onclick="openDatePicker('tr-date')">
+  <input type="hidden" id="tr-date">
+  <div class="date-picker-display" id="dpd-tr-date">בחר תאריך...</div>
+  <span class="date-picker-icon">📅</span>
+</div>
+      </div>
+      <div class="fg">
+        <label class="fl">שעת העלאה</label>
+        <input class="fi" id="tr-time" type="time">
+      </div>
+    </div>
+    <div class="fg">
+      <label class="fl">🔗 קישור לסרטון</label>
+      <input class="fi" id="tr-url" placeholder="https://www.tiktok.com/...">
+    </div>
+    <div style="background:var(--s2);border-radius:12px;padding:16px;margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:700;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">📊 נתונים אחרי 24 שעות</div>
+      <div class="form-3col">
+        <div class="fg" style="margin-bottom:0">
+          <label class="fl"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor"><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,182.49,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></svg> צפיות</label>
+          <input class="fi" id="tr-views" type="number" placeholder="0">
+        </div>
+        <div class="fg" style="margin-bottom:0">
+          <label class="fl"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor"><path d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40ZM128,214.8C109.74,204.16,32,155.69,32,102A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,155.61,146.24,204.15,128,214.8Z"/></svg> לייקים</label>
+          <input class="fi" id="tr-likes" type="number" placeholder="0">
+        </div>
+        <div class="fg" style="margin-bottom:0">
+          <label class="fl"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6.54-.67L40,216l12.48-37.4a8,8,0,0,0-.67-6.54A88,88,0,1,1,128,216Z"/></svg> תגובות</label>
+          <input class="fi" id="tr-comments" type="number" placeholder="0">
+        </div>
+        <div class="fg" style="margin-bottom:0">
+          <label class="fl"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor"><path d="M240,56v48a8,8,0,0,1-8,8H184a8,8,0,0,1,0-16h28.69L196.12,79.51a79.84,79.84,0,0,0-57-23.43h-.41A80,80,0,0,0,56.42,183.74a8,8,0,1,1-12.84,9.54A96,96,0,0,1,138.71,40.08h.49a95.91,95.91,0,0,1,68.54,28.1L224,84.69V56a8,8,0,0,1,16,0Zm-26.58,136.26A80,80,0,0,1,57.31,176.49L43.31,162.49H72a8,8,0,0,0,0-16H24a8,8,0,0,0-8,8v48a8,8,0,0,0,16,0V174.69l15.51,15.8a96,96,0,0,0,166.29-38.29,8,8,0,0,0-15.38-4.94Z"/></svg> שיתופים</label>
+          <input class="fi" id="tr-shares" type="number" placeholder="0">
+        </div>
+        <div class="fg" style="margin-bottom:0">
+          <label class="fl"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Zm0,177.57-51.77-32.35a8,8,0,0,0-8.48,0L72,209.57V48H184Z"/></svg> שמירות</label>
+          <input class="fi" id="tr-saves" type="number" placeholder="0">
+        </div>
+        <div class="fg" style="margin-bottom:0">
+          <label class="fl"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 256 256" fill="currentColor"><path d="M240,56v48a8,8,0,0,1-16,0V75.31l-82.34,82.35a8,8,0,0,1-11.32,0L96,123.31,29.66,189.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0L136,140.69,212.69,64H168a8,8,0,0,1,0-16h64A8,8,0,0,1,240,56Z"/></svg> הגעה</label>
+          <input class="fi" id="tr-reach" type="number" placeholder="0">
+        </div>
+      </div>
+    </div>
+    <div class="fg">
+      <label class="fl">הערות</label>
+      <textarea class="fi" id="tr-notes" rows="2" placeholder="תובנות, מה עבד, מה לשפר..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-save" onclick="saveTracking()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M219.31,72,184,36.69A15.86,15.86,0,0,0,172.69,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V83.31A15.86,15.86,0,0,0,219.31,72ZM168,208H88V152h80Zm40,0H184V152a16,16,0,0,0-16-16H88a16,16,0,0,0-16,16v56H48V48H172.69L208,83.31ZM160,72a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h56A8,8,0,0,1,160,72Z"/></svg> שמור</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('overlay-tracking').classList.remove('open')">ביטול</button>
+      <button class="btn-del" id="tr-del-btn" style="display:none" onclick="deleteTracking()">🗑️</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <div id="lightbox-content"></div>
+</div>
+
+<div class="toast" id="toast">✅ <span id="toast-msg">נשמר!</span></div>
+
+<!-- CUSTOM CONFIRM DIALOG -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-dialog" id="confirm-dialog">
+    <span class="confirm-icon" id="confirm-icon">🗑️</span>
+    <div class="confirm-title" id="confirm-title">האם אתה בטוח?</div>
+    <div class="confirm-msg" id="confirm-msg"></div>
+    <div class="confirm-btns">
+      <button class="confirm-btn cancel" id="confirm-cancel-btn">ביטול</button>
+      <button class="confirm-btn danger" id="confirm-ok-btn">אישור</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ADD CHOOSER MODAL — Glass Icons -->
+<div class="chooser-overlay" id="chooser-overlay" onclick="if(event.target===this)closeChooser()">
+  <div class="chooser-box">
+    <div class="chooser-title">מה תרצה להוסיף?</div>
+    <div class="icon-btns">
+
+      <button class="icon-btn" onclick="closeChooser();setTimeout(openPackageChooser,80)" aria-label="חבילת סרטונים" type="button">
+        <div class="icon-btn__wrap">
+          <span class="icon-btn__back" style="background:linear-gradient(hsl(43,90%,50%),hsl(28,90%,50%))"></span>
+          <span class="icon-btn__front">
+            <span class="icon-btn__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256" fill="#ebe5e5"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l32.29-17.56,80.35,44ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z"/></svg></span>
+          </span>
+        </div>
+        <span class="icon-btn__label">חבילת<br>סרטונים</span>
+      </button>
+
+      <button class="icon-btn" onclick="closeChooser();setTimeout(openNewClientModal,80)" aria-label="לקוח חדש" type="button">
+        <div class="icon-btn__wrap">
+          <span class="icon-btn__back" style="background:linear-gradient(135deg,hsl(162,90%,42%),hsl(198,90%,48%))"></span>
+          <span class="icon-btn__front">
+            <span class="icon-btn__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256" fill="#ebe5e5"><path d="M117.25,157.92a52,52,0,1,0-66.5,0A71.71,71.71,0,0,0,16,219.2a8,8,0,0,0,16,1.6,56,56,0,0,1,112,0,8,8,0,0,0,8,7.2,8.86,8.86,0,0,0,.81,0,8,8,0,0,0,7.17-8.75A71.71,71.71,0,0,0,117.25,157.92ZM56,108a36,36,0,1,1,36,36A36,36,0,0,1,56,108Zm144,12a28,28,0,1,1,28-28A28,28,0,0,1,200,120Zm42.85,62.87a8,8,0,0,1-11.25,1.28,43.35,43.35,0,0,0-52.95,0,8,8,0,1,1-9.97-12.51,59.39,59.39,0,0,1,72.9,0A8,8,0,0,1,242.85,182.87Z"></path></svg></span>
+          </span>
+        </div>
+        <span class="icon-btn__label">לקוח<br>חדש</span>
+      </button>
+
+      <button class="icon-btn" onclick="closeChooser();setTimeout(openModal,80)" aria-label="פרויקט" type="button">
+        <div class="icon-btn__wrap">
+          <span class="icon-btn__back" style="background:linear-gradient(hsl(3,90%,50%),hsl(348,90%,50%))"></span>
+          <span class="icon-btn__front">
+            <span class="icon-btn__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256" fill="#ebe5e5"><path d="M216,80H180.92L207.72,53.2a8,8,0,1,0-11.44-11.17l-35.88,36.72a8.07,8.07,0,0,1-1.15.88H147.3l10.08-28.22A8,8,0,0,0,142.38,43l-12.58,35.19a8.22,8.22,0,0,1-.55.88H115.3l10.08-28.22A8,8,0,0,0,110.38,43L97.8,78.19a8.22,8.22,0,0,1-.55.88H40A16,16,0,0,0,24,96V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V96A16,16,0,0,0,216,80Zm0,120H40V96H216Z"/></svg></span>
+          </span>
+        </div>
+        <span class="icon-btn__label">פרויקט<br>אחר</span>
+      </button>
+
+      <button class="icon-btn" onclick="closeChooser();setTimeout(openShootDayModal,80)" aria-label="יום צילום" type="button">
+        <div class="icon-btn__wrap">
+          <span class="icon-btn__back" style="background:linear-gradient(hsl(208,90%,50%),hsl(223,90%,50%))"></span>
+          <span class="icon-btn__front">
+            <span class="icon-btn__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256" fill="#ebe5e5"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,176H48V48H72v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24Z"/></svg></span>
+          </span>
+        </div>
+        <span class="icon-btn__label">יום<br>צילום</span>
+      </button>
+
+      <button class="icon-btn" onclick="closeChooser();setTimeout(openScriptModal,80)" aria-label="תסריט" type="button">
+        <div class="icon-btn__wrap">
+          <span class="icon-btn__back" style="background:linear-gradient(hsl(283,90%,50%),hsl(268,90%,50%))"></span>
+          <span class="icon-btn__front">
+            <span class="icon-btn__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256" fill="#ebe5e5"><path d="M163.31,100.69a16,16,0,0,0-22.63,0L72,169.37,56,224l54.63-16L178.69,140a16,16,0,0,0,0-22.63ZM92.37,214,68,221l7-24.33,77.37-77.38,17.37,17.37ZM168,128.69l-17.37-17.38,11.32-11.31,17.37,17.37ZM216,88H152a8,8,0,0,0,0,16h56V208H48V104H96a8,8,0,0,0,0-16H48A16,16,0,0,0,32,104V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V104A16,16,0,0,0,216,88Z"/></svg></span>
+          </span>
+        </div>
+        <span class="icon-btn__label">תסריט</span>
+      </button>
+
+    </div>
+    <button onclick="closeChooser()" style="width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);padding:10px;border-radius:12px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s" onmouseover="this.style.background='rgba(255,255,255,.12)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">ביטול</button>
+  </div>
+</div>
+
+<!-- SHOOT DAY MODAL (quick add) -->
+<div class="overlay" id="overlay-shoot-day" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head">
+      <div class="modal-title">📅 הוסף יום צילום</div>
+      <button class="btn-close" onclick="document.getElementById('overlay-shoot-day').classList.remove('open')">✕</button>
+    </div>
+    <div class="fg">
+      <label class="fl">תאריך הצילום *</label>
+      <div class="date-picker-wrap" id="dpw-shoot-day-date" onclick="openDatePicker('shoot-day-date')">
+  <input type="hidden" id="shoot-day-date">
+  <div class="date-picker-display" id="dpd-shoot-day-date">בחר תאריך...</div>
+  <span class="date-picker-icon">📅</span>
+</div>
+    </div>
+    <div class="fg">
+      <label class="fl">לקוח</label>
+      <div class="cl-picker-wrap" id="clp-wrap-shoot-day-client">
+      <button type="button" class="cl-picker-trigger" id="clp-btn-shoot-day-client" onclick="toggleClPicker('shoot-day-client')">
+        <span id="clp-label-shoot-day-client" style="color:var(--muted2)">בחר לקוח...</span>
+        <span class="cl-picker-arrow">▼</span>
+      </button>
+      <input type="hidden" id="shoot-day-client">
+      <div class="cl-picker-dropdown" id="clp-drop-shoot-day-client"></div>
+    </div>
+    </div>
+    <div class="fg">
+      <label class="fl">הערות ליום הצילום</label>
+      <textarea class="fi" id="shoot-day-notes" rows="2" placeholder="מה מצלמים? מיקום, ציוד, לוח זמנים..." style="resize:vertical;min-height:60px"></textarea>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:8px">
+      <button class="btn btn-primary" onclick="saveShootDay()" style="flex:1">📅 שמור יום צילום</button>
+      <button class="btn btn-ghost btn-sm" onclick="document.getElementById('overlay-shoot-day').classList.remove('open')">ביטול</button>
+    </div>
+  </div>
+</div>
+
+<!-- PACKAGE CHOOSER — pick client then open package settings -->
+<div class="chooser-overlay" id="pkg-chooser-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="chooser-box" style="max-width:380px">
+    <div class="chooser-title">חבילת סרטונים — בחר לקוח</div>
+    <div class="fg">
+      <label class="fl">לקוח *</label>
+      <div class="cl-picker-wrap" id="clp-wrap-pkg-chooser-client">
+      <button type="button" class="cl-picker-trigger" id="clp-btn-pkg-chooser-client" onclick="toggleClPicker('pkg-chooser-client')">
+        <span id="clp-label-pkg-chooser-client" style="color:var(--muted2)">בחר לקוח...</span>
+        <span class="cl-picker-arrow">▼</span>
+      </button>
+      <input type="hidden" id="pkg-chooser-client">
+      <div class="cl-picker-dropdown" id="clp-drop-pkg-chooser-client"></div>
+    </div>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:8px">
+      <button class="btn btn-primary" onclick="openPkgForClient()" style="flex:1">📦 הגדר חבילה</button>
+      <button class="btn btn-ghost btn-sm" onclick="document.getElementById('pkg-chooser-overlay').classList.remove('open')">ביטול</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- CUSTOM DATE PICKER -->
+<div class="dp-overlay" id="dp-overlay" onclick="if(event.target===this)closeDatePicker()">
+  <div class="dp-box">
+    <div class="dp-nav">
+      <button class="dp-nav-btn" onclick="dpMove(1)">‹</button>
+      <div class="dp-month-label" id="dp-month-label"></div>
+      <button class="dp-nav-btn" onclick="dpMove(-1)">›</button>
+    </div>
+    <div class="dp-grid" id="dp-grid"></div>
+    <div class="dp-footer">
+      <button class="dp-cancel" onclick="closeDatePicker()">ביטול</button>
+      <button class="dp-clear" onclick="clearDate()">נקה</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- WHATSAPP MESSAGE MODAL -->
+<div class="overlay" id="overlay-wa" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal" style="max-width:440px">
+    <div class="modal-head">
+      <div class="modal-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6.54-.67L40,216l12.48-37.4a8,8,0,0,0-.67-6.54A88,88,0,1,1,128,216Z"/></svg> הודעת WhatsApp ללקוח</div>
+      <button class="btn-close" onclick="document.getElementById('overlay-wa').classList.remove('open')">✕</button>
+    </div>
+    <p style="font-size:12px;color:var(--muted2);margin-bottom:10px;line-height:1.6">הודעה מוכנה לשליחה — ערוך לפי הצורך ושלח</p>
+    <textarea id="wa-text" rows="6" style="width:100%;background:var(--s3);border:1px solid var(--border2);border-radius:10px;padding:12px;font-family:inherit;font-size:13px;color:var(--text);resize:vertical;line-height:1.7;direction:rtl"></textarea>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+      <button onclick="sendWhatsApp()" style="flex:1;background:#25D366;border:none;color:#fff;padding:12px;border-radius:10px;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></svg> פתח WhatsApp</button>
+      <button onclick="copyWaText()" style="background:var(--s2);border:1px solid var(--border2);color:var(--text);padding:12px 14px;border-radius:10px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">📋 העתק</button>
+      <button onclick="document.getElementById('overlay-wa').classList.remove('open')" style="background:var(--s2);border:1px solid var(--border2);color:var(--muted2);padding:12px 14px;border-radius:10px;font-family:inherit;font-size:13px;cursor:pointer">ביטול</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- DOCK — Mobile bottom nav -->
+<div class="dock-wrap" id="dock-wrap">
+  <div class="dock" id="dock">
+    <button class="dock-item active" data-view="pipeline" onclick="dockClick('pipeline',this)">
+      <div class="dock-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 256 256" fill="#ebe5e5"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM40,88h80v80H40Zm96-16V56h32V72Zm-16,0H88V56h32Zm0,112v16H88V184Zm16,0h32v16H136Zm0-16V88h80v80Zm80-96H184V56h32ZM72,56V72H40V56ZM40,184H72v16H40Zm176,16H184V184h32v16Z"/></svg></div>
+      <span class="dock-label">פייפליין</span>
+    </button>
+    <button class="dock-item" data-view="clients" onclick="dockClick('clients',this)">
+      <div class="dock-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 256 256" fill="#ebe5e5"><path d="M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z"/></svg></div>
+      <span class="dock-label">לקוחות</span>
+    </button>
+    <button class="dock-item" data-view="calendar" onclick="dockClick('calendar',this)">
+      <div class="dock-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 256 256" fill="#ebe5e5"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,176H48V48H72v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24Z"/></svg></div>
+      <span class="dock-label">לוח שנה</span>
+    </button>
+    <button class="dock-item" data-view="scripts" onclick="dockClick('scripts',this)">
+      <div class="dock-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 256 256" fill="#ebe5e5"><path d="M163.31,100.69a16,16,0,0,0-22.63,0L72,169.37,56,224l54.63-16L178.69,140a16,16,0,0,0,0-22.63ZM92.37,214,68,221l7-24.33,77.37-77.38,17.37,17.37ZM168,128.69l-17.37-17.38,11.32-11.31,17.37,17.37ZM216,88H152a8,8,0,0,0,0,16h56V208H48V104H96a8,8,0,0,0,0-16H48A16,16,0,0,0,32,104V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V104A16,16,0,0,0,216,88Z"/></svg>
+        <span class="dock-badge" id="dock-scripts-badge">0</span>
+      </div>
+      <span class="dock-label">תסריטים</span>
+    </button>
+    <button class="dock-item" data-view="payments" onclick="dockClick('payments',this)">
+      <div class="dock-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 256 256" fill="#ebe5e5"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-68a28,28,0,0,1-28,28v4a8,8,0,0,1-16,0v-4H112a8,8,0,0,1,0-16h32a12,12,0,0,0,0-24H112a28,28,0,0,1,0-56v-4a8,8,0,0,1,16,0v4h12a8,8,0,0,1,0,16H112a12,12,0,0,0,0,24h16A28,28,0,0,1,168,148Z"/></svg></div>
+      <span class="dock-label">תשלומים</span>
+    </button>
+    <button class="dock-item" data-view="history" onclick="dockClick('history',this)">
+      <div class="dock-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#ebe5e5" viewBox="0 0 256 256"><path d="M140,80v41.21l34.17,20.5a12,12,0,1,1-12.34,20.58l-40-24A12,12,0,0,1,116,128V80a12,12,0,0,1,24,0ZM128,28A99.38,99.38,0,0,0,57.24,57.34c-4.69,4.74-9,9.37-13.24,14V64a12,12,0,0,0-24,0v40a12,12,0,0,0,12,12H72a12,12,0,0,0,0-24H57.77C63,86,68.37,80.22,74.26,74.26a76,76,0,1,1,1.58,109,12,12,0,0,0-16.48,17.46A100,100,0,1,0,128,28Z"></path></svg>
+        <span class="dock-badge" id="dock-archive-badge" style="background:#6c63ff">0</span>
+      </div>
+      <span class="dock-label">היסטוריה</span>
+    </button>
+  </div>
+</div>
+
+
+  <script src="core.js"></script>
+  <script src="pipeline.js"></script>
+  <script src="clients.js"></script>
+  <script src="calendar.js"></script>
+  <script src="scripts.js"></script>
+  <script src="tracking.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app-config.local.js"></script>
+  <script src="app/config.js"></script>
+  <script src="app/services/supabase.js"></script>
+  <script src="app/services/repository.js"></script>
+  <script src="app/services/dev-mode.js"></script>
+  <script src="app/services/client-model.js"></script>
+  <script src="app/services/ledger.js"></script>
+  <script src="app/services/inbox-model.js"></script>
+  <script src="app/services/receipts.js"></script>
+  <script src="app/services/tasks.js"></script>
+  <script src="app/services/workspace-model.js"></script>
+  <script src="app/state/app-state.js"></script>
+  <script src="app/views/dashboard.js"></script>
+  <script src="app/views/inbox.js"></script>
+  <script src="app/views/onboarding.js"></script>
+  <script src="app/views/tasks.js"></script>
+  <script src="app/views/client-workspace.js"></script>
+  <script src="app/views/receipts.js"></script>
+  <script src="app/views/ledger.js"></script>
+  <script src="app/views/insights.js"></script>
+  <script src="app/views/project-workspace.js"></script>
+  <script src="app/views/settings.js"></script>
+  <script src="app/views/calendar-agenda.js"></script>
+  <script src="app/views/search.js"></script>
+  <script src="app/components/new-client-flow.js"></script>
+  <script src="app/components/form-controls.js"></script>
+  <script src="app/components/project-flow.js"></script>
+  <script src="app/components/auth-shell.js"></script>
+  <script src="app/bridge.js"></script>
+  <script src="app/enhancements.js"></script>
+  <script src="app/boot.js"></script>
+</body>
+</html>
