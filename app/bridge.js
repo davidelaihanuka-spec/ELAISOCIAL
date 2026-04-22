@@ -319,6 +319,12 @@
 
   function syncCloudDebounced() { clearTimeout(syncTimer); syncTimer = global.setTimeout(syncCloudNow, 650); }
 
+  function cancelPendingSync() {
+    if (!syncTimer) return;
+    clearTimeout(syncTimer);
+    syncTimer = null;
+  }
+
   function installPersistencePatches() {
     ['save', 'saveClients', '_saveSC', 'saveTasksStore', 'saveTracking_store', '_saveArchive', '_saveTrash', '_saveLog'].forEach((name) => {
       const original = global[name]; if (typeof original !== 'function' || original.__cloudPatched) return;
@@ -374,5 +380,5 @@
 
   function installSearchPatch() { global.runGlobalSearch = function(query) { ns.search.renderResults(query); }; global.clearSearch = function() { ns.search.clear(); }; }
 
-  ns.bridge = { buildCanonicalFromLegacy, hydrateLegacyFromCanonical, readLocalLegacyState, loadInitialState, syncCloudNow, syncCloudDebounced, installPersistencePatches, installShootDayPatches, installSearchPatch };
+  ns.bridge = { buildCanonicalFromLegacy, hydrateLegacyFromCanonical, readLocalLegacyState, loadInitialState, syncCloudNow, syncCloudDebounced, cancelPendingSync, installPersistencePatches, installShootDayPatches, installSearchPatch };
 })(window);

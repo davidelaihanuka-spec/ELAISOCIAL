@@ -1,5 +1,42 @@
 (function bootReelCloud(global) {
   const ns = global.REELApp = global.REELApp || {};
+  let lifecycleCleanupBound = false;
+
+  function cleanupDepartingPage(event) {
+    if (event?.persisted) return;
+
+    try { ns.bridge?.cancelPendingSync?.(); } catch (error) {}
+
+    try {
+      const client = ns.supabase?.getClient?.();
+      client?.auth?.stopAutoRefresh?.();
+      client?.removeAllChannels?.();
+    } catch (error) {}
+
+    try {
+      global.projects = [];
+      global.clientData = {};
+      global.scriptsData = [];
+      global.trackingData = [];
+      global.archiveData = [];
+      global.trashData = [];
+      global.activityLog = [];
+      global.shootDaysData = [];
+      global.reelTasksData = [];
+    } catch (error) {}
+
+    try {
+      global.document.body?.replaceChildren();
+    } catch (error) {}
+  }
+
+  function installLifecycleCleanup() {
+    if (lifecycleCleanupBound) return;
+    lifecycleCleanupBound = true;
+
+    global.addEventListener('beforeunload', cleanupDepartingPage);
+    global.addEventListener('pagehide', cleanupDepartingPage);
+  }
 
   async function saveConfigAndSwitchToLogin() {
     const url = document.getElementById('supabase-url-input').value.trim();
@@ -293,6 +330,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    installLifecycleCleanup();
     ns.shell.injectShell();
     ns.enhancements.installNavigationEnhancements();
     document.getElementById('save-supabase-config-btn')?.addEventListener('click', saveConfigAndSwitchToLogin);
