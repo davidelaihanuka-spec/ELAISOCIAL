@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Customer management application",
   "scripts": {
+    "build:netlify": "node scripts/build-netlify.js",
     "check": "node scripts/check.js",
     "start": "node preview-server.js",
     "preview": "node preview-server.js",

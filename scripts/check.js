@@ -4,7 +4,7 @@ const { execSync } = require('child_process');
 
 const root = path.resolve(__dirname, '..');
 const scanDirs = ['.', 'app', 'scripts'];
-const ignoreDirs = new Set(['node_modules', '.git']);
+const ignoreDirs = new Set(['node_modules', '.git', 'dist']);
 const ignoreFiles = new Set(['app-config.local.js']);
 
 function walk(dirPath, collected) {
