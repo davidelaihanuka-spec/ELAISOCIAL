@@ -1,0 +1,96 @@
+/* Production performance guard.
+   This file loads after the main app styles so it can reliably disable the
+   GPU-heavy visual effects that make Chrome sluggish on long-running sessions. */
+:root {
+  --shadow-card: 0 1px 0 rgba(255,255,255,0.05) inset !important;
+  --shadow-lg: 0 1px 0 rgba(255,255,255,0.06) inset !important;
+}
+
+html body::before,
+html body::after,
+html body .sidebar::before,
+html body .sidebar::after,
+html body .card-nav::before,
+html body .vcard::before,
+html body .stat-card::before,
+html body .icon-btn__glow {
+  display: none !important;
+}
+
+html body [class],
+html body [id],
+html body [class]::before,
+html body [class]::after,
+html body [id]::before,
+html body [id]::after {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  animation: none !important;
+  will-change: auto !important;
+  text-shadow: none !important;
+}
+
+html body .app [class],
+html body .app [id],
+html body .app [class]::before,
+html body .app [class]::after,
+html body .reel-auth-overlay,
+html body .reel-auth-card,
+html body .mobile-dock,
+html body .mobile-topbar,
+html body .overlay,
+html body .modal,
+html body .confirm-dialog,
+html body .client-panel,
+html body .proj-pay-panel,
+html body .sdp-panel,
+html body .chooser-box,
+html body .dp-box,
+html body .global-search-panel,
+html body .ui-select-dropdown {
+  box-shadow: none !important;
+}
+
+html body #global-search-wrap,
+html body #mobile-topbar {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html body .filter-chip.active,
+html body .btn-add,
+html body .btn-primary,
+html body .cl-picker-dropdown,
+html body .sc-status-drop,
+html body .fpaid-drop,
+html body .toast,
+html body .confirm-btn,
+html body .icon-btn__front,
+html body .dock,
+html body .dock-icon,
+html body .mobile-fab,
+html body .ui-select-trigger {
+  box-shadow: none !important;
+}
+
+html body [class]:not(img):not(video):not(canvas),
+html body [id]:not(img):not(video):not(canvas),
+html body [class]::before,
+html body [class]::after,
+html body [id]::before,
+html body [id]::after {
+  filter: none !important;
+}
+
+html body .view,
+html body .vcard,
+html body .client-card,
+html body .script-card,
+html body .track-card,
+html body .pay-client-row,
+html body .stat-card,
+html body .dash-card,
+html body .inbox-row,
+html body .workspace-panel {
+  contain: layout paint;
+}

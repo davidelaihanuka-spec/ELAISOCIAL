@@ -125,10 +125,6 @@ function goView(v, el) {
   const vEl = document.getElementById('view-'+v);
   if(vEl) {
     vEl.style.display = '';
-    // Reset animation so it replays on every tab switch
-    vEl.style.animation = 'none';
-    vEl.offsetHeight; // force reflow
-    vEl.style.animation = '';
     vEl.classList.add('active');
   }
   if(el && el.classList.contains('nav-btn')) el.classList.add('active');
